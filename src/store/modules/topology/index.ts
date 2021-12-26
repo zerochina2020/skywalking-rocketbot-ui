@@ -818,7 +818,11 @@ const actions: ActionTree<State, any> = {
     });
     const querys = `query queryData(${variables}) {${fragment}}`;
     return axios
-      .post('/graphql', { query: querys, variables: { duration: params.duration } }, { cancelToken: cancelToken() })
+      .post(
+        '/skywalking/graphql',
+        { query: querys, variables: { duration: params.duration } },
+        { cancelToken: cancelToken() },
+      )
       .then((res: AxiosResponse) => {
         if (res.data.errors) {
           const msg = res.data.errors.map((e: { message: string }) => e.message).join(' ');
@@ -892,7 +896,11 @@ const actions: ActionTree<State, any> = {
           .join(' ');
         const query = `query queryData(${queryVariables}) {${fragments}}`;
         return axios
-          .post('/graphql', { query, variables: { duration: params.duration } }, { cancelToken: cancelToken() })
+          .post(
+            '/skywalking/graphql',
+            { query, variables: { duration: params.duration } },
+            { cancelToken: cancelToken() },
+          )
           .then((json: AxiosResponse<any>) => {
             if (json.data.errors) {
               const msg = json.data.errors.map((e: { message: string }) => e.message).join(' ');

@@ -16,12 +16,16 @@
  */
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 module.exports = {
+  publicPath: process.env.BASE_URL,
   productionSourceMap: process.env.NODE_ENV !== 'production',
   devServer: {
     proxy: {
-      '/graphql': {
+      '/skywalking/graphql': {
         target: `${process.env.SW_PROXY_TARGET || 'http://127.0.0.1:12800'}`,
         changeOrigin: true,
+        pathRewrite: {
+          '^/skywalking': '',
+        },
       },
     },
   },
